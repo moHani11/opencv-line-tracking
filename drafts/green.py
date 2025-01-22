@@ -1,6 +1,9 @@
 import cv2 as cv
 import numpy as np
 
+# constants
+MIN_GREEN_CONTOUR_AREA = 200
+
 def green(roi):
     # Initialize detection status
     GreenDetected = False
@@ -19,6 +22,16 @@ def green(roi):
 
     # Initialize movement instructions
     move_instructions = {"forward": False, "right": False, "left": False, "turn": False}
+
+
+    # Add this part---------------------------->
+    eligable_green_contours = []
+    for cont in contours:
+        if cv.contourArea(contour = cont) > MIN_GREEN_CONTOUR_AREA:
+            eligable_green_contours.append(cont)
+        
+    eligable_green_contours = np.array(eligable_green_contours)
+    ####################################################################
 
     # Check for the first contour and process it
     if len(contours) >= 1:
