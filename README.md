@@ -18,7 +18,15 @@ The robot doesn't look at the whole picture. It focuses on a **Region of Interes
 ### 2. Steering Logic
 The robot calculates an **Error** value. If the line is in the center of the camera, the error is zero. If the line moves to the left or right, the robot calculates how much to adjust the motor speeds to bring the line back to the center.
 
-### 3. Communication
+### 3. Ball Collection and Storage
+In addition to following the line, the robot is designed to handle physical objects:
+* **Detection:** The camera scans for specific ball colors using color segmentation.
+* **Collection:** Once a ball is centered in the frame, the robot approaches and uses a collection mechanism (like a motorized intake or gripper) to pick it up.
+* **Storage:** The robot is programmed to locate a designated box, navigate toward it, and deposit the collected balls inside autonomously before returning to the line-tracking task.
+
+
+
+### 4. Communication
 Because the Raspberry Pi is good at vision but the Arduino is better at controlling motors, they talk to each other via a **Serial (USB) cable**. The Pi sends a string of text like "30 30" to tell the Arduino the speeds for the left and right wheels.
 
 
@@ -28,6 +36,7 @@ Because the Raspberry Pi is good at vision but the Arduino is better at controll
 * Arduino (connected via USB)
 * L298N or similar motor driver
 * Robot chassis with DC motors
+* Ball collection intake and storage box
 
 ## Software Setup
 You will need to install these Python libraries:
